@@ -16,14 +16,18 @@ from app.mod_auth.forms import LoginForm
 # Import module models (i.e. User)
 from app.mod_auth.models import User
 
+# For import app config's 
+from flask import current_app as app
+
 import json
+import jwt
 
 # Define the blueprint: 'auth', set its url prefix: app.url/auth
 mod_auth = Blueprint('auth', __name__, url_prefix='/auth')
 
 # Set the route and accepted methods
-@mod_auth.route('/signin/', methods=['POST'])
-def signin():
+@mod_auth.route('/getkey', methods=['POST'])
+def getkey():
 
     # get JSON request
     req = ImmutableMultiDict(request.get_json())
@@ -35,10 +39,25 @@ def signin():
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
         if user and check_password_hash(user.password, form.password.data):
-            return jsonify({"success": True, "result": {"user": user.name, "password": user.password}})
-        return jsonify({"success": False, "result": {"flash": ["Usuário ou senha inválidos!"]}})
+            payloads = {"user": user.name, "email": user.email, 
+                        "role": user.role, "status": user.status}
+            encoded_jwt = jwt.encode(payloads, app.config["SECRET_KEY"],app.config["JWT_ALGORITHM"])
+            return jsonify({"success": True, "result": encoded_jwt.decode("utf-8")})
+        return jsonify({"success": False, "result": "Usuário ou senha inválidos!"})
     return jsonify({"success": False, "result": form.errors})
 
+@mod_auth.route('/decode', methods=['POST'])
+def decode():
+    key = request.headers.get('Authorization')
+    if key:
+        try:
+            payloads = jwt.decode(key.replace("Bearer ", ""), app.config["SECRET_KEY"], app.config["JWT_ALGORITHM"])
+        except jwt.exceptions.DecodeError:
+            return jsonify({"success": False, "result": "Token inválido!"})
+        return jsonify({"success": False, "result": payloads})
+    return jsonify({"success": False, "result": "Token é requerido para esta requisição!"})
+    
+
 @mod_auth.route('/logged', methods=['GET'])
-def home():
+def logged():
     return render_template("auth/logged.html")

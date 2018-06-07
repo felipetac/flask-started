@@ -24,5 +24,8 @@ CSRF_ENABLED = False
 # signing the data. 
 #CSRF_SESSION_KEY = "secret"
 
-# Secret key for signing cookies
-SECRET_KEY = "secret"
+# JWT Secret key
+SECRET_KEY = "25ef26bae776093bb5ff6ff9aa3a27dcc83d3b5c188d624d"
+
+# JWT Algorithm
+JWT_ALGORITHM = 'HS512'
