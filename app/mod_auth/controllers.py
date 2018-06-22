@@ -29,7 +29,7 @@ mod_auth = Blueprint('auth', __name__, url_prefix='/auth')
 @mod_auth.route('/getkey', methods=['POST'])
 def getkey():
 
-    # get JSON request
+    # Get JSON request body
     req = ImmutableMultiDict(request.get_json())
 
     # If sign in form is submitted
@@ -48,14 +48,16 @@ def getkey():
 
 @mod_auth.route('/decode', methods=['POST'])
 def decode():
+    # Get APIKey from request head 
     key = request.headers.get('Authorization')
+    
     if key:
         try:
             payloads = jwt.decode(key.replace("Bearer ", ""), app.config["SECRET_KEY"], app.config["JWT_ALGORITHM"])
         except jwt.exceptions.DecodeError:
-            return jsonify({"success": False, "result": "Token inválido!"})
-        return jsonify({"success": False, "result": payloads})
-    return jsonify({"success": False, "result": "Token é requerido para esta requisição!"})
+            return jsonify({"success": False, "result": "Token inválido!"}), 401
+        return jsonify({"success": True, "result": payloads})
+    return jsonify({"success": False, "result": "Token é requerido para esta requisição!"}), 401
     
 
 @mod_auth.route('/logged', methods=['GET'])
