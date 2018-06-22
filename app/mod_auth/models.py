@@ -26,8 +26,9 @@ class User(Base):
     password = db.Column(db.String(192),  nullable=False)
 
     # Authorisation Data: role & status
-    role = db.Column(db.SmallInteger, nullable=False, default='member')
-    status = db.Column(db.SmallInteger, nullable=False, default='active')
+    #role = db.Column(db.SmallInteger, nullable=False, default=1)
+    role = db.Column(db.String(128), nullable=False, default='member')
+    status = db.Column(db.String(128), nullable=False, default='active')
 
     # New instance instantiation procedure
     def __init__(self, name, email, password):
