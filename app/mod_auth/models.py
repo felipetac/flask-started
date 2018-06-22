@@ -27,8 +27,10 @@ class User(Base):
 
     # Authorisation Data: role & status
     #role = db.Column(db.SmallInteger, nullable=False, default=1)
+    # INFO: arg 'server_default' neste caso é um FIXED para funcionar o migration no SQLITE
     role = db.Column(db.String(128), nullable=False, default='member')
-    status = db.Column(db.String(128), nullable=False, default='active')
+    status = db.Column(db.String(100), nullable=False, default='active', server_default='active')
+    deleted = db.Column(db.String(3), nullable=False, default='no', server_default='no') #coluna de test migration
 
     # New instance instantiation procedure
     def __init__(self, name, email, password):
