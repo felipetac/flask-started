@@ -1,3 +1,5 @@
+import os
+
 # Import flask and template operators
 from flask import Flask, render_template, jsonify
 
@@ -8,7 +10,8 @@ from flask_sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 
 # Configurations
-app.config.from_object('config')
+#app.config.from_object('config')
+app.config.from_object(os.environ['APP_SETTINGS'])
 
 # Define the database object which is imported
 # by modules and controllers

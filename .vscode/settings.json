@@ -9,5 +9,6 @@
         "**/*.pyc": {"when": "$(basename).py"}, 
         "**/__pycache__": true
     },
+    "python.linting.enabled": true,
     
 }
