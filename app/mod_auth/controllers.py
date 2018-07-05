@@ -41,7 +41,7 @@ def getkey():
         if user and check_password_hash(user.password, form.password.data):
             payloads = {"user": user.name, "email": user.email, 
                         "role": user.role, "status": user.status}
-            encoded_jwt = jwt.encode(payloads, app.config["SECRET_KEY"],app.config["JWT_ALGORITHM"])
+            encoded_jwt = jwt.encode(payloads, app.config["SECRET_KEY"], app.config["JWT_ALGORITHM"])
             return jsonify({"success": True, "result": encoded_jwt.decode("utf-8")})
         return jsonify({"success": False, "result": "Usuário ou senha inválidos!"})
     return jsonify({"success": False, "result": form.errors})
