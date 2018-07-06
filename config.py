@@ -33,17 +33,24 @@ class Config(object):
     # JWT Algorithm
     JWT_ALGORITHM = 'HS512'
 
-class ProductionConfig(Config):
-    DEBUG = False
-
-class StagingConfig(Config):
-    DEVELOPMENT = True
-    DEBUG = True
-
 class DevelopmentConfig(Config):
     DEVELOPMENT = True
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(BASE_DIR, 'app.db')
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URL') or \
+    'sqlite:///' + os.path.join(BASE_DIR, 'app-dev.db')
 
 class TestingConfig(Config):
     TESTING = True
+    SQLALCHEMY_DATABASE_URI = os.environ.get('TEST_DATABASE_URL') or \
+    'sqlite:///' + os.path.join(BASE_DIR, 'app-test.db')
+
+class ProductionConfig(Config):
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
+    'sqlite:///' + os.path.join(BASE_DIR, 'app.db')
+
+config = {
+    'development': DevelopmentConfig,
+    'testing': TestingConfig,
+    'production': ProductionConfig,
+    'default': DevelopmentConfig
+}

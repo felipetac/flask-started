@@ -42,9 +42,9 @@ def getkey():
             payloads = {"user": user.name, "email": user.email, 
                         "role": user.role, "status": user.status}
             encoded_jwt = jwt.encode(payloads, app.config["SECRET_KEY"], app.config["JWT_ALGORITHM"])
-            return jsonify({"success": True, "result": encoded_jwt.decode("utf-8")})
-        return jsonify({"success": False, "result": "Usuário ou senha inválidos!"})
-    return jsonify({"success": False, "result": form.errors})
+            return jsonify({"result": encoded_jwt.decode("utf-8")})
+        return jsonify({"result": "Usuário ou senha inválidos!"}), 404
+    return jsonify({"result": form.errors}), 406
 
 @mod_auth.route('/decode', methods=['POST'])
 def decode():
@@ -55,9 +55,9 @@ def decode():
         try:
             payloads = jwt.decode(key.replace("Bearer ", ""), app.config["SECRET_KEY"], app.config["JWT_ALGORITHM"])
         except jwt.exceptions.DecodeError:
-            return jsonify({"success": False, "result": "Token inválido!"}), 401
-        return jsonify({"success": True, "result": payloads})
-    return jsonify({"success": False, "result": "Token é requerido para esta requisição!"}), 401
+            return jsonify({"result": "Token inválido!"}), 401
+        return jsonify({"result": payloads})
+    return jsonify({"result": "Token é requerido para esta requisição!"}), 401
     
 
 @mod_auth.route('/logged', methods=['GET'])
