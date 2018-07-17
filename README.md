@@ -3,7 +3,7 @@
 ## Preparação
 
 1. Instale o pyenv e o python 3.7.0
-2. Clone o projeto do git 
+2. Clone o projeto do git
 3. Acesse a raiz do projeto (flask-started)
 4. Crie a pasta virtual do ambiente
 
@@ -45,6 +45,6 @@
     source ~/.autoenv/activate.sh
     ```
 
-3. Pronto! Quando entrar dentro da raiz do projeto os comandos dentro do arquivo __.env__ serão executados e o ambiente virtual (_.venv_) será ativado automativamente. 
+3. Pronto! Quando entrar dentro da raiz do projeto os comandos dentro do arquivo __.env__ serão executados e o ambiente virtual (_.venv_) será ativado automativamente.
 
     > "Executado os procedimentos do autoenv, não precisará executar o **item 5** da instalação do projeto."
