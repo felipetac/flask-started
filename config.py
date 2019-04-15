@@ -1,7 +1,7 @@
 import os
 from dotenv import load_dotenv
 
-BASE_DIR = os.path.abspath(os.path.dirname(__file__)) 
+BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 load_dotenv()
 
 class Config(object):
@@ -27,7 +27,7 @@ class Config(object):
     CSRF_ENABLED = False
 
     # Use a secure, unique and absolutely secret key for
-    # signing the data. 
+    # signing the data.
     #CSRF_SESSION_KEY = "secret"
 
     # JWT Secret key
@@ -40,22 +40,22 @@ class DevelopmentConfig(Config):
     DEVELOPMENT = True
     DEBUG = True
     SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URL') or \
-    'sqlite:///' + os.path.join(BASE_DIR, 
-                                os.environ.get('SQLITE_DIR'), 
+    'sqlite:///' + os.path.join(BASE_DIR,
+                                os.environ.get('SQLITE_DIR'),
                                 os.environ.get('DEV_DBNAME')) + '.db'
 
 class TestingConfig(Config):
     TESTING = True
     SQLALCHEMY_DATABASE_URI = os.environ.get('TEST_DATABASE_URL') or \
-    'sqlite:///' + os.path.join(BASE_DIR, 
-                                os.environ.get('SQLITE_DIR'), 
+    'sqlite:///' + os.path.join(BASE_DIR,
+                                os.environ.get('SQLITE_DIR'),
                                 os.environ.get('TEST_DBNAME')) + '.db'
 
 class ProductionConfig(Config):
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
     'sqlite:///' + os.path.join(BASE_DIR, 'app.db')
 
-config = {
+CONFIG = {
     'development': DevelopmentConfig,
     'testing': TestingConfig,
     'production': ProductionConfig,

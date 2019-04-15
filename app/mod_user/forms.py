@@ -15,14 +15,12 @@ class RestForm(FlaskForm):
 
 # Define the login form (WTForms)
 class LoginForm(RestForm):
-
     email = TextField('Email Address',
                       [Email(), Required(message='E-mail é requerido! preenche-o.')])
     password = PasswordField('Password',
                              [Required(message='Precisa fornecer uma senha.')])
 
 class UserForm(RestForm):
-
     name = TextField('Username',
                      [Required(message='Precisa fornecer o nome do usuário.')])
     email = TextField('Email Address',

@@ -7,7 +7,7 @@ from flask import Blueprint, request, jsonify
 from werkzeug.datastructures import ImmutableMultiDict
 
 # Import the database object from the main app module
-from app import db
+from app import DB
 
 # Import module forms
 from app.mod_user.forms import UserForm
@@ -41,8 +41,8 @@ def create_user():
     if form.validate_on_submit():
         user = User()
         user.hydrate(form)
-        db.session.add(user)
-        db.session.commit()
+        DB.session.add(user)
+        DB.session.commit()
         return jsonify("Usuário criado com sucesso!")
     return jsonify(form.errors), 406
 
@@ -54,7 +54,7 @@ def update_user(user_id):
         form = UserForm(req)
         if form.validate_on_submit():
             user.hydrate(form)
-            db.session.commit()
+            DB.session.commit()
             return jsonify("Usuário atualizado com sucesso!")
         return jsonify(form.errors), 406
     return jsonify("Id de usuário não encontrado!"), 204
@@ -63,7 +63,7 @@ def update_user(user_id):
 def delete_user(user_id):
     user = User.query.filter_by(id=user_id).first()
     if user:
-        db.session.delete(user)
-        db.session.commit()
+        DB.session.delete(user)
+        DB.session.commit()
         return jsonify("Usuário apagado com sucesso!")
     return jsonify("Id de usuário não encontrado ou já deletado!"), 204

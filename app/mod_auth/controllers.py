@@ -20,7 +20,6 @@ MOD_AUTH = Blueprint('auth', __name__, url_prefix='/auth')
 # Set the route and accepted methods
 @MOD_AUTH.route('/getkey', methods=['POST'])
 def getkey():
-
     # Get JSON request body
     req = ImmutableMultiDict(request.get_json())
 

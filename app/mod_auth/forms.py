@@ -8,14 +8,12 @@ from wtforms import TextField, PasswordField # BooleanField
 from wtforms.validators import Required, Email
 
 class RestForm(FlaskForm):
-
     # disable csrf
     class Meta:
         csrf = False
 
 # Define the login form (WTForms)
 class LoginForm(RestForm):
-
     email = TextField('Email Address',
                       [Email(),
                        Required(message='E-mail é requerido! preenche-o.')])
