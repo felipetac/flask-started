@@ -1,7 +1,11 @@
 # Import the database object (db) from the main application module
 # We will define this inside /app/__init__.py in the next sections.
 from werkzeug.security import generate_password_hash, check_password_hash
-from app import DB, MA
+from flask_sqlalchemy import SQLAlchemy
+from flask_marshmallow import Marshmallow
+
+DB = SQLAlchemy()
+MA = Marshmallow()
 
 # Define a base model for other database tables to inherit
 class Base(DB.Model):

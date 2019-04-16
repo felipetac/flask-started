@@ -6,8 +6,7 @@ from flask import Blueprint, request, jsonify
 
 from werkzeug.datastructures import ImmutableMultiDict
 
-# Import the database object from the main app module
-from app import DB
+from flask_sqlalchemy import SQLAlchemy
 
 # Import module forms
 from app.mod_user.forms import UserForm
@@ -17,6 +16,7 @@ from app.mod_user.models import User, UserSchema
 
 # Define the blueprint: 'auth', set its url prefix: app.url/auth
 MOD_USER = Blueprint('user', __name__, url_prefix='/user')
+DB = SQLAlchemy()
 
 @MOD_USER.route('', methods=['GET'])
 def list_users():
