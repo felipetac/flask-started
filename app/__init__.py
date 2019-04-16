@@ -12,8 +12,8 @@ from app.mod_auth.controllers import MOD_AUTH
 APP = Flask(__name__)
 
 # Configurations
-#app.config.from_object('config')
-APP.config.from_object(CONFIG.get(os.environ["APP_SETTINGS"] or "default"))
+__ENV = os.environ["APP_SETTINGS"] if "APP_SETTINGS" in os.environ.keys() else "default"
+APP.config.from_object(CONFIG.get(__ENV))
 
 # Define the database object which is imported
 # by modules and controllers
