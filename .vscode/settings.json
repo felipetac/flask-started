@@ -6,9 +6,9 @@
         "**/.hg": true,
         "**/CVS": true,
         "**/.DS_Store": true,
-        "**/*.pyc": {"when": "$(basename).py"}, 
+        "**/*.pyc": {"when": "$(basename).py"},
         "**/__pycache__": true
     },
     "python.linting.enabled": true,
-    "python.linting.pylintArgs": ["--load-plugins", "pylint_flask"]    
+    "python.linting.pylintArgs": ["--load-plugins", "pylint_flask"]
 }
