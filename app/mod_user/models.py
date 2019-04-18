@@ -1,11 +1,7 @@
 # Import the database object (db) from the main application module
 # We will define this inside /app/__init__.py in the next sections.
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_sqlalchemy import SQLAlchemy
-from flask_marshmallow import Marshmallow
-
-DB = SQLAlchemy()
-MA = Marshmallow()
+from app.container import DB, MA
 
 # Define a base model for other database tables to inherit
 class Base(DB.Model):
@@ -28,21 +24,7 @@ class User(Base):
     # Identification Data: email & password
     email = DB.Column(DB.String(128), nullable=False, unique=True)
     password_hash = DB.Column(DB.String(192), nullable=False)
-
-    # Authorisation Data: role & status
-    #role = DB.Column(DB.SmallInteger, nullable=False, default=1)
-
-    # INFO: arg 'server_default' neste caso é um FIXED para funcionar o migration no SQLITE
-    #role = DB.Column(DB.String(128), nullable=False, default='member')
-    #status = DB.Column(DB.String(100), nullable=False, default='active', server_default='active')
-    #deleted = DB.Column(DB.String(3), nullable=False,
-    #                    default='no', server_default='no') #coluna de test migration
-
-    # New instance instantiation procedure
-    #def __init__(self, name, email, password):
-    #    self.name = name
-    #    self.email = email
-    #    self.password = password
+    group_id = DB.Column(DB.Integer, DB.ForeignKey('auth_group.id'))
 
     @property
     def password(self):

@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 load_dotenv()
 
+
 class Config(object):
 
     # Statement for enabling the development environment
@@ -36,24 +37,31 @@ class Config(object):
     # JWT Algorithm
     JWT_ALGORITHM = 'HS512'
 
+
 class DevelopmentConfig(Config):
     DEVELOPMENT = True
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URL') or \
-    'sqlite:///' + os.path.join(BASE_DIR,
-                                os.environ.get('SQLITE_DIR'),
-                                os.environ.get('DEV_DBNAME')) + '.db'
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
+        'sqlite:///' + os.path.join(BASE_DIR, 'development.db')
+
 
 class TestingConfig(Config):
     TESTING = True
-    SQLALCHEMY_DATABASE_URI = os.environ.get('TEST_DATABASE_URL') or \
-    'sqlite:///' + os.path.join(BASE_DIR,
-                                os.environ.get('SQLITE_DIR'),
-                                os.environ.get('TEST_DBNAME')) + '.db'
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
+        'sqlite:///' + os.path.join(BASE_DIR, 'testing.db')
+
 
 class ProductionConfig(Config):
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
-    'sqlite:///' + os.path.join(BASE_DIR, 'app.db')
+    POSTGRES_URL = os.environ.get("POSTGRES_URL")
+    POSTGRES_USER = os.environ.get("POSTGRES_USER")
+    POSTGRES_PW = os.environ.get("POSTGRES_PW")
+    POSTGRES_DB = os.environ.get("POSTGRES_DB")
+
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://' + \
+        '{user}:{pw}@{url}/{db}'.format(user=POSTGRES_USER,
+                                        pw=POSTGRES_PW,
+                                        url=POSTGRES_URL,
+                                        db=POSTGRES_DB)
 
 CONFIG = {
     'development': DevelopmentConfig,

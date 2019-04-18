@@ -1,11 +1,7 @@
-from flask_sqlalchemy import SQLAlchemy
-from flask_marshmallow import Marshmallow
-
-DB = SQLAlchemy()
-MA = Marshmallow()
+from app.container import DB, MA
+from app.mod_user.models import User
 
 # Define a base model for other database tables to inherit
-
 
 class Base(DB.Model):
 
@@ -15,7 +11,6 @@ class Base(DB.Model):
     date_created = DB.Column(DB.DateTime, default=DB.func.current_timestamp())
     date_modified = DB.Column(DB.DateTime, default=DB.func.current_timestamp(),
                               onupdate=DB.func.current_timestamp())
-
 
 ROLES = DB.Table('auth_group_role',
                  DB.Column('role_id', DB.Integer, DB.ForeignKey(
@@ -45,7 +40,7 @@ class Group(Base):
                        nullable=True)
     roles = DB.relationship('Role', secondary=ROLES, lazy='subquery',
                             backref=DB.backref('groups', lazy=True))
-    users = DB.relationship('User', backref='group', lazy=True)
+    users = DB.relationship(User, backref='group', lazy=True)
 
     def hydrate(self, form):
         """
