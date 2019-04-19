@@ -49,6 +49,8 @@ class Group(Base):
         self.name = form.name.data
         self.initials = form.email.data
         self.parent = form.parent.data
+        self.roles = form.roles.data
+        self.users = form.users.data
 
 class GroupSchema(MA.ModelSchema):
     class Meta:

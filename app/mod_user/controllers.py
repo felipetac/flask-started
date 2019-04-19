@@ -1,22 +1,11 @@
-# Import flask dependencies
 from flask import Blueprint, request, jsonify
-
-# Import password / encryption helper tools
-#from werkzeug.security import check_password_hash, generate_password_hash
-
 from werkzeug.datastructures import ImmutableMultiDict
-
-from flask_sqlalchemy import SQLAlchemy
-
-# Import module forms
+from app.container import DB
 from app.mod_user.forms import UserForm
-
-# Import module models (i.e. User)
 from app.mod_user.models import User, UserSchema
 
 # Define the blueprint: 'auth', set its url prefix: app.url/auth
 MOD_USER = Blueprint('user', __name__, url_prefix='/user')
-DB = SQLAlchemy()
 
 @MOD_USER.route('', methods=['GET'])
 def list_users():

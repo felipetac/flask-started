@@ -12,6 +12,7 @@ from werkzeug.datastructures import ImmutableMultiDict
 from app.mod_auth.forms import LoginForm
 
 # Import module models (i.e. User)
+from app.mod_auth.models import Group, Role # pylint: disable=unused-import
 from app.mod_user.models import User
 
 # Define the blueprint: 'auth', set its url prefix: app.url/auth
