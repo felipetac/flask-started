@@ -1,19 +1,8 @@
-# Import the database object (db) from the main application module
-# We will define this inside /app/__init__.py in the next sections.
 from werkzeug.security import generate_password_hash, check_password_hash
-from app.container import DB, MA
+from app import DB, MA
+from app.mod_auth.model import Base
 
-# Define a base model for other database tables to inherit
-class Base(DB.Model):
 
-    __abstract__ = True
-
-    id = DB.Column(DB.Integer, primary_key=True)
-    date_created = DB.Column(DB.DateTime, default=DB.func.current_timestamp())
-    date_modified = DB.Column(DB.DateTime, default=DB.func.current_timestamp(),
-                              onupdate=DB.func.current_timestamp())
-
-# Define a User model
 class User(Base):
 
     __tablename__ = 'auth_user'

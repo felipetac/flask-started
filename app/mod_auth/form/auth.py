@@ -1,16 +1,10 @@
-# Import Form
-from flask_wtf import FlaskForm
-
 # Import Form elements such as TextField and BooleanField (optional)
 from wtforms import TextField, PasswordField # BooleanField
 
 # Import Form validators
 from wtforms.validators import Required, Email
 
-class RestForm(FlaskForm):
-    # disable csrf
-    class Meta:
-        csrf = False
+from app.mod_auth.form import RestForm
 
 # Define the login form (WTForms)
 class LoginForm(RestForm):

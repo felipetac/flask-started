@@ -1,7 +1,7 @@
 import jwt
 
 # Import flask dependencies
-from flask import Blueprint, request, render_template, jsonify, current_app
+from flask import request, render_template, jsonify, current_app
 
 # Import password / encryption helper tools
 #from werkzeug.security import check_password_hash, generate_password_hash
@@ -9,14 +9,12 @@ from flask import Blueprint, request, render_template, jsonify, current_app
 from werkzeug.datastructures import ImmutableMultiDict
 
 # Import module forms
-from app.mod_auth.forms import LoginForm
+from app.mod_auth.form.auth import LoginForm
 
 # Import module models (i.e. User)
-from app.mod_auth.models import Group, Role # pylint: disable=unused-import
-from app.mod_user.models import User
-
-# Define the blueprint: 'auth', set its url prefix: app.url/auth
-MOD_AUTH = Blueprint('auth', __name__, url_prefix='/auth')
+#from app.mod_auth.models import Group, Role
+from app.mod_auth.model.user import User
+from app.mod_auth.controller import MOD_AUTH
 
 # Set the route and accepted methods
 @MOD_AUTH.route('/getkey', methods=['POST'])

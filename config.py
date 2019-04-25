@@ -42,13 +42,13 @@ class DevelopmentConfig(Config):
     DEVELOPMENT = True
     DEBUG = True
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
-        'sqlite:///' + os.path.join(BASE_DIR, 'development.db')
+        'sqlite:///' + os.path.join(BASE_DIR, 'app.db')
 
 
 class TestingConfig(Config):
     TESTING = True
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
-        'sqlite:///' + os.path.join(BASE_DIR, 'testing.db')
+        'sqlite://' # in-memory database
 
 
 class ProductionConfig(Config):
