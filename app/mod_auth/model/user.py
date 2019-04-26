@@ -1,4 +1,5 @@
 from werkzeug.security import generate_password_hash, check_password_hash
+from sqlalchemy.event import listen
 from app import DB, MA
 from app.mod_auth.model import Base
 
@@ -8,26 +9,17 @@ class User(Base):
     __tablename__ = 'auth_user'
 
     # User Name
-    name = DB.Column(DB.String(128), nullable=False)
+    name = DB.Column(DB.String(200), nullable=False)
 
     # Identification Data: email & password
-    email = DB.Column(DB.String(128), nullable=False, unique=True)
-    password_hash = DB.Column(DB.String(192), nullable=False)
+    email = DB.Column(DB.String(200), nullable=False, unique=True)
+    password = DB.Column(DB.String(200), nullable=False)
     group_id = DB.Column(DB.Integer, DB.ForeignKey('auth_group.id'))
 
-    @property
-    def password(self):
-        """
-        Prevent pasword from being accessed
-        """
-        raise AttributeError('password is not a readable attribute.')
-
-    @password.setter
-    def password(self, password):
-        """
-        Set password to a hashed password
-        """
-        self.password_hash = generate_password_hash(password)
+    @staticmethod
+    def _hash_password(mapper, connection, target):
+        user = target
+        user.password = generate_password_hash(user.password)
 
     def verify_password(self, password):
         """
@@ -35,17 +27,14 @@ class User(Base):
         """
         return check_password_hash(self.password_hash, password)
 
-    def hydrate(self, form):
-        """
-        Hydrate form data into user model
-        """
-        self.name = form.name.data
-        self.email = form.email.data
-        self.password = form.password.data
-
     def __repr__(self):
         return '<User %r>' % (self.name)
+
 
 class UserSchema(MA.ModelSchema):
     class Meta:
         model = User
+
+
+listen(User, 'before_insert', User._hash_password)
+listen(User, 'before_update', User._hash_password)

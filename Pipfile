@@ -15,9 +15,10 @@ flask-migrate = "*"
 flask-sqlalchemy = "*"
 flask-wtf = "*"
 flask-marshmallow = "*"
+flask-babel = "*"
 pyjwt = "*"
 marshmallow-sqlalchemy = "*"
-
+wtforms-alchemy = "*"
 
 [requires]
 python_version = "3.7"

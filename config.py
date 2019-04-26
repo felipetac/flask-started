@@ -37,6 +37,8 @@ class Config(object):
     # JWT Algorithm
     JWT_ALGORITHM = 'HS512'
 
+    BABEL_DEFAULT_LOCALE = 'pt'
+
 
 class DevelopmentConfig(Config):
     DEVELOPMENT = True
@@ -48,7 +50,7 @@ class DevelopmentConfig(Config):
 class TestingConfig(Config):
     TESTING = True
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
-        'sqlite://' # in-memory database
+        'sqlite:///' # in-memory database
 
 
 class ProductionConfig(Config):

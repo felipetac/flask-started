@@ -21,7 +21,7 @@ def create_user():
     form = UserForm(req)
     if form.validate_on_submit():
         user = User()
-        user.hydrate(form)
+        form.populate_obj(user)
         DB.session.add(user)
         DB.session.commit()
         return jsonify("Usuário criado com sucesso!")

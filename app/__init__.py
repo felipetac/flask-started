@@ -2,6 +2,7 @@ import os
 from flask import Flask, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
+from flask_babel import Babel
 from config import CONFIG
 
 # Define the WSGI application object
@@ -17,6 +18,9 @@ DB = SQLAlchemy(APP)
 
 # Object serialization and deserialization, lightweight and fluffy
 MA = Marshmallow(APP)
+
+# Babel adds i18n and l10n support to any Flask application 
+BA = Babel(APP)
 
 # Sample HTTP error handling
 @APP.errorhandler(404)
