@@ -5,11 +5,10 @@ from wtforms import TextField, PasswordField  # BooleanField
 from wtforms.validators import Required, Email
 
 from app.mod_auth.form import RestForm
+from app.mod_auth.model.role import Role
 
 
 class RoleForm(RestForm):
 
-    name = TextField('Nome da Regra',
-                     [Required(message='Precisa fornecer o nome da regra.')])
-    description = TextField('Descrição da Regra',
-                            [Required(message='Precisa fornecer a descrição da regra')])
+    class Meta:
+        model = Role

@@ -28,7 +28,7 @@ def create_user():
     return jsonify(form.errors), 406
 
 
-@MOD_AUTH.route('/user/<int:id>', methods=['GET'])
+@MOD_AUTH.route('/user/<int:user_id>', methods=['GET'])
 def read_user(user_id):
     user = User.query.filter_by(id=user_id).first()
     if user:
@@ -37,21 +37,21 @@ def read_user(user_id):
     return jsonify("Não há usuários cadastrados na base!"), 204
 
 
-@MOD_AUTH.route('/user/<int:id>', methods=['PUT'])
+@MOD_AUTH.route('/user/<int:user_id>', methods=['PUT'])
 def update_user(user_id):
     user = User.query.filter_by(id=user_id).first()
     if user:
         req = ImmutableMultiDict(request.get_json())
-        form = UserForm(req)
-        if form.validate_on_submit():
-            user.hydrate(form)
+        form = UserForm(req, obj=user) # set the object currently edited to avoid raising a ValidationError
+        if form.validate():
+            form.populate_obj(user)
             DB.session.commit()
             return jsonify("Usuário atualizado com sucesso!")
         return jsonify(form.errors), 406
     return jsonify("Id de usuário não encontrado!"), 204
 
 
-@MOD_AUTH.route('/user/<int:id>', methods=['DELETE'])
+@MOD_AUTH.route('/user/<int:user_id>', methods=['DELETE'])
 def delete_user(user_id):
     user = User.query.filter_by(id=user_id).first()
     if user:

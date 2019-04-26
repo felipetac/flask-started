@@ -12,6 +12,4 @@ class UserForm(RestForm):
 
     class Meta:
         model = User
-    
-    password = PasswordField('Password',
-                             [Required(message='Precisa fornecer uma senha.')])
+        group_id = IntegerField("Id do Grupo")

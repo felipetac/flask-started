@@ -5,17 +5,18 @@ from wtforms import TextField, PasswordField  # BooleanField
 from wtforms.validators import Required, Email
 
 from app.mod_auth.form import RestForm
+from app.mod_auth.form.user import UserForm
+from app.mod_auth.form.role import RoleForm
+from app.mod_auth.model.group import Group
 
+from wtforms import IntegerField
+from wtforms_alchemy import ModelForm, ModelFieldList, ModelFormField
+from wtforms.fields import FormField
 
 class GroupForm(RestForm):
 
-    name = TextField('Nome do Grupo',
-                     [Required(message='Precisa fornecer o nome do grupo.')])
-    initials = TextField('Sigla do Grupo',
-                         [Required(message='Precisa fornecer a sigla.')])
-    parent = TextField('Grupo Pai',
-                       [Required(message='Precisa fornecer o id do grupo pai.')])
-    roles = TextField('Regras',
-                      [Required(message='Precisa fornecer o array de regras.')])
-    users = TextField('Usuarios',
-                      [Required(message='Precisa fornecer o array de usuarios.')])
+    class Meta:
+        model = Group
+        parent_id = IntegerField("Id do Grupo Pai")
+        users = ModelFieldList(FormField(UserForm))
+        roles = ModelFieldList(FormField(RoleForm))

@@ -14,7 +14,7 @@ class User(Base):
     # Identification Data: email & password
     email = DB.Column(DB.String(200), nullable=False, unique=True)
     password = DB.Column(DB.String(200), nullable=False)
-    group_id = DB.Column(DB.Integer, DB.ForeignKey('auth_group.id'))
+    group_id = DB.Column(DB.Integer, DB.ForeignKey('auth_group.id'), nullable=True)
 
     @staticmethod
     def _hash_password(mapper, connection, target):
