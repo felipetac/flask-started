@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "ca333a28d6df0b28abb45f4d6602c9bd0c8064a08ebbc5ff03f2e77d677270aa"
+            "sha256": "a865179314f865ebf25c0828c88c5968915769765c49ae09a1b6b00549432a91"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -99,7 +99,6 @@
         },
         "infinity": {
             "hashes": [
-                "sha256:90a99abc38e7a5ee97e9d6bac1e6f08b7b949d166c62b4914f8d3a7f51a6ee41",
                 "sha256:dc4aa138d7e366fc00d2e741e32c78a0fecd16b74f8daeb3f7408b459668005c"
             ],
             "version": "==1.4"
@@ -165,10 +164,11 @@
         },
         "marshmallow": {
             "hashes": [
-                "sha256:0e497a6447ffaad55578138ca512752de7a48d12f444996ededc3d6bf8a09ca2",
-                "sha256:e21a4dea20deb167c723e0ffb13f4cf33bcbbeb8a334e92406a3308cedea2826"
+                "sha256:e23b8618275225ec111225dc01301e1cc0c3cbb4e41307b35136f891a29d3949",
+                "sha256:ea2a241f2ea69bb0863f2c00b907a8e22d7dd8b6d5b9960135906037c9dd7068"
             ],
-            "version": "==2.19.2"
+            "index": "pypi",
+            "version": "==3.0.0rc5"
         },
         "marshmallow-sqlalchemy": {
             "hashes": [

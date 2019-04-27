@@ -1,7 +1,8 @@
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy.event import listen
 from app import DB, MA
-from app.mod_auth.model import Base
+from . import Base
+from .group import Group
 
 
 class User(Base):
@@ -14,7 +15,8 @@ class User(Base):
     # Identification Data: email & password
     email = DB.Column(DB.String(200), nullable=False, unique=True)
     password = DB.Column(DB.String(200), nullable=False)
-    group_id = DB.Column(DB.Integer, DB.ForeignKey('auth_group.id'), nullable=True)
+    group_id = DB.Column(DB.Integer, DB.ForeignKey('auth_group.id'))
+    group = DB.relationship(Group)
 
     @staticmethod
     def _hash_password(mapper, connection, target):

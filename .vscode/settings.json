@@ -9,6 +9,5 @@
         "**/*.pyc": {"when": "$(basename).py"},
         "**/__pycache__": true
     },
-    "python.linting.enabled": true,
-    "python.linting.pylintArgs": ["--load-plugins", "pylint_flask"]
+    "python.linting.enabled": true
 }

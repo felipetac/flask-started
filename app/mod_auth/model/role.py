@@ -1,4 +1,4 @@
-from app.mod_auth.model import Base
+from . import Base
 from app import DB, MA
 
 ROLES = DB.Table('auth_group_role',

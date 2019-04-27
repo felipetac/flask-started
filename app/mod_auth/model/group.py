@@ -1,7 +1,6 @@
 from app import DB, MA
-from app.mod_auth.model import Base
-from app.mod_auth.model.role import ROLES
-from app.mod_auth.model.user import User
+from . import Base
+from .role import ROLES
 
 
 class Group(Base):
@@ -15,7 +14,6 @@ class Group(Base):
     children = DB.relationship('Group', lazy="joined", join_depth=2)
     roles = DB.relationship('Role', secondary=ROLES, lazy='subquery',
                             backref=DB.backref('groups', lazy=True))
-    users = DB.relationship(User, backref='group', lazy=True)
 
 
 class GroupSchema(MA.ModelSchema):

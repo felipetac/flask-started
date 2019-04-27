@@ -11,7 +11,7 @@ def list_users():
     users = User.query.all()
     if users:
         user_schema = UserSchema(many=True)
-        return jsonify(user_schema.dump(users).data)
+        return jsonify(user_schema.dump(users))
     return jsonify("Não há usuários cadastrados na base!"), 204
 
 
@@ -33,7 +33,7 @@ def read_user(user_id):
     user = User.query.filter_by(id=user_id).first()
     if user:
         user_schema = UserSchema()
-        return jsonify(user_schema.dump(user).data)
+        return jsonify(user_schema.dump(user))
     return jsonify("Não há usuários cadastrados na base!"), 204
 
 
