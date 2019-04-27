@@ -17,8 +17,7 @@ def list_users():
 
 @MOD_AUTH.route('/user', methods=['POST'])
 def create_user():
-    req = ImmutableMultiDict(request.get_json())
-    form = UserForm(req)
+    form = UserForm.from_json(request.get_json())
     if form.validate_on_submit():
         user = User()
         form.populate_obj(user)
@@ -41,9 +40,8 @@ def read_user(user_id):
 def update_user(user_id):
     user = User.query.filter_by(id=user_id).first()
     if user:
-        req = ImmutableMultiDict(request.get_json())
-        form = UserForm(req, obj=user) # set the object currently edited to avoid raising a ValidationError
-        if form.validate():
+        form = UserForm.from_json(request.get_json(), obj=user) # set the object to avoid raising a ValidationError  
+        if form.validate_on_submit():
             form.populate_obj(user)
             DB.session.commit()
             return jsonify("Usuário atualizado com sucesso!")

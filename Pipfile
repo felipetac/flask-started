@@ -22,6 +22,7 @@ wtforms-alchemy = "*"
 marshmallow = ">3.0.0rc4"
 sqlalchemy-utils = "*"
 passlib = "*"
+wtforms-json = "*"
 
 [requires]
 python_version = "3.7"

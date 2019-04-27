@@ -39,6 +39,8 @@ class Config(object):
 
     BABEL_DEFAULT_LOCALE = 'pt'
 
+    PASSWORD_SCHEMES = ['pbkdf2_sha512']
+
 
 class DevelopmentConfig(Config):
     DEVELOPMENT = True
