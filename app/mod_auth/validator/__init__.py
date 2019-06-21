@@ -1,15 +1,15 @@
-from wtforms_components import Email
-from wtforms_alchemy import Unique
+from wtforms_components import Email as Em
+from wtforms_alchemy import Unique as Uq
 
 '''
  Customizei estes validadores pois wtforms-alchemy não estava traduzindo
  https://wtforms-alchemy.readthedocs.io/en/latest/validators.html#overriding-default-validators
 '''
 
-class EmailValidator(Email):
+class Email(Em):
     def __init__(self, message='Email Inválido.'):
-        Email.__init__(self, message=message)
+        Em.__init__(self, message=message)
 
-class UniqueValidator(Unique):
+class Unique(Uq):
     def __init__(self, column, get_session=None, message='Já Existe.'):
-        Unique.__init__(self, column, get_session=get_session, message=message)
+        Uq.__init__(self, column, get_session=get_session, message=message)

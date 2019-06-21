@@ -13,7 +13,7 @@ class Role(Base):
     __tablename__ = 'auth_role'
 
     name = DB.Column(DB.String(128), nullable=False, unique=True)
-    decription = DB.Column(DB.String(500), nullable=True)
+    description = DB.Column(DB.String(500), nullable=True)
 
 class RoleSchema(MA.ModelSchema):
     class Meta:
