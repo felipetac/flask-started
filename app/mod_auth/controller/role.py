@@ -18,7 +18,6 @@ def list_roles():
 @MOD_AUTH.route('/role', methods=['POST'])
 def create_role():
     form = RoleForm.from_json(request.get_json())
-    form.sanitize()
     if form.validate_on_submit():
         role = Role()
         form.populate_obj(role)
