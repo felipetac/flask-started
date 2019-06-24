@@ -6,7 +6,7 @@ from flask import request, render_template, jsonify, current_app
 # Import password / encryption helper tools
 #from werkzeug.security import check_password_hash, generate_password_hash
 
-from werkzeug.datastructures import ImmutableMultiDict
+#from werkzeug.datastructures import ImmutableMultiDict
 
 # Import module forms
 from app.mod_auth.form.auth import LoginForm
@@ -20,15 +20,17 @@ from app.mod_auth.controller import MOD_AUTH
 @MOD_AUTH.route('/getkey', methods=['POST'])
 def getkey():
     # Get JSON request body
-    req = ImmutableMultiDict(request.get_json())
+    #req = ImmutableMultiDict(request.get_json())
 
     # If sign in form is submitted
-    form = LoginForm(req)
+    #form = LoginForm(req)
+
+    form = LoginForm.from_json(request.get_json())
 
     # Verify the sign in form
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
-        if user and user.verify_password(form.password.data):
+        if user and user.password == form.password.data:
             payloads = {"user": user.name, "email": user.email}
             encoded_jwt = jwt.encode(payloads, current_app.config["SECRET_KEY"],
                                      current_app.config["JWT_ALGORITHM"])
