@@ -4,9 +4,11 @@ from app.mod_auth.form.role import RoleForm
 from app.mod_auth.model.role import Role, RoleSchema
 from app.mod_auth.controller import MOD_AUTH
 from app import DB
+from app.mod_auth.service.auth import Auth
 
 
 @MOD_AUTH.route('/roles', methods=['GET'])
+@Auth.role("LISTAR_REGRAS")
 def list_roles():
     roles = Role.query.all()
     if roles:
