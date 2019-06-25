@@ -2,11 +2,11 @@
 # from sqlalchemy.event import listen
 from app import DB, MA, PS
 from . import Base
-from .group import Group
+from .group import Group, GroupSchema
 from flask import current_app
 # Hash password Automagic
 from sqlalchemy_utils import PasswordType, force_auto_coercion, EmailType
-
+from marshmallow import fields
 
 class User(Base):
 
@@ -26,5 +26,10 @@ class User(Base):
 
 
 class UserSchema(MA.ModelSchema):
+
     class Meta:
         model = User
+        exclude = ("password", ) # Exclude password from serialization
+
+    group = fields.Nested(GroupSchema, exclude=("children", "date_created",
+                                                "date_modified", ))
