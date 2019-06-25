@@ -1,10 +1,9 @@
 from flask import request, jsonify
-from werkzeug.datastructures import ImmutableMultiDict
-from app.mod_auth.form.group import GroupForm
-from app.mod_auth.model.group import Group, GroupSchema
-from app.mod_auth.controller import MOD_AUTH
-from app.mod_auth.model.role import Role
 from app import DB
+from app.mod_auth.model.group import Group, GroupSchema
+from app.mod_auth.model.role import Role
+from app.mod_auth.form.group import GroupForm
+from app.mod_auth.controller import MOD_AUTH
 
 
 @MOD_AUTH.route('/groups', methods=['GET'])

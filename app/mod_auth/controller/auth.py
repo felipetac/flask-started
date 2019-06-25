@@ -8,17 +8,16 @@ from flask import request, render_template, jsonify, current_app
 
 #from werkzeug.datastructures import ImmutableMultiDict
 
-# Import module forms
-from app.mod_auth.form.auth import LoginForm
-
-# Import module models (i.e. User)
-#from app.mod_auth.models import Group, Role
 from app.mod_auth.model.user import User
 from app.mod_auth.controller import MOD_AUTH
+
+# Import module forms
+from app.mod_auth.form.auth import LoginForm
 
 # Set the route and accepted methods
 @MOD_AUTH.route('/getkey', methods=['POST'])
 def getkey():
+
     # Get JSON request body
     #req = ImmutableMultiDict(request.get_json())
 
@@ -51,7 +50,3 @@ def decode():
             return jsonify({"result": "Token inválido!"}), 401
         return jsonify({"result": payloads})
     return jsonify({"result": "Token é requerido para esta requisição!"}), 401
-
-@MOD_AUTH.route('/logged', methods=['GET'])
-def logged():
-    return render_template("auth/logged.html")
