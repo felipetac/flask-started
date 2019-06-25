@@ -24,7 +24,8 @@ def create_user():
         form.populate_obj(user)
         DB.session.add(user)
         DB.session.commit()
-        return jsonify("Usuário criado com sucesso!")
+        user_schema = UserSchema()
+        return jsonify(user_schema.dump(user)) # Return user with last id insert
     return jsonify(form.errors), 406
 
 
